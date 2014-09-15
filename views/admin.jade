@@ -1,0 +1,56 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='csrf-token', content=_csrf)
+    meta(name='author', content='')
+    title #{title} | Forum
+    != css('styles')
+
+  body
+    include partials/navbar
+
+    .container(ng-app="ngAdmin")
+        .row
+            .col-md-6(ng-controller="categoryAdminControl")
+                h2 
+                    i.fa.fa-thumb-tack
+                    | Categories
+                .well
+                    div.row
+                        form(ng-submit="addCategory()")
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.name" placeholder="Name")
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.description" placeholder="Description")
+                            .col-md-2
+                                button.form-control(type="submit")
+                                    i.fa.fa-pencil-square-o
+                                    | &nbsp;Add
+                    div.row(ng-repeat="category in categoryList")
+                        hr
+                        .col-md-2
+                            button
+                                i.fa.fa-wrench
+                        .col-md-4
+                            h5 {{category.name}}
+                        .col-md-4
+                            h5 {{category.description}}
+                        .col-md-2
+                            button(ng-click="deleteCategory(category._id)")
+                                i.fa.fa-times
+                        
+
+            .col-md-6
+                h2 Topics
+            .col-md-6
+                h2 Replies
+            .col-md-6
+                h2 Notifications
+
+    include partials/footer
+
+    != js('application')

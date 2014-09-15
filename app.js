@@ -25,10 +25,12 @@ var connectAssets = require('connect-assets');
  * Controllers (route handlers).
  */
 
+var adminController = require('./controllers/admin');
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
+var categoryController = require('./controllers/category');
 
 /**
  * API keys and Passport configuration.
@@ -60,7 +62,10 @@ var week = day * 7;
  * CSRF whitelist.
  */
 
-var csrfExclude = ['/url1', '/url2'];
+var csrfExclude = ['/url1', '/url2', 
+'/rest/category',
+'/rest/category/:id'
+];
 
 /**
  * Express configuration.
@@ -92,11 +97,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(function(req, res, next) {
-  // CSRF protection.
-  if (_.contains(csrfExclude, req.path)) return next();
-  csrf(req, res, next);
-});
+// app.use(function(req, res, next) {
+//   // CSRF protection.
+//   if (_.contains(csrfExclude, req.path)) return next();
+//   csrf(req, res, next);
+// });
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;
@@ -118,6 +123,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
  */
 
 app.get('/', homeController.index);
+app.get('/admin', adminController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -142,20 +148,21 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 
 app.get('/rest', function(req, res) {
   res.type('text/plain'); // set content-type
-  res.send('i am a beautiful butterfly'); // send text response
+  res.send('forum api running'); // send text response
 });
-app.get('/rest/category', function(req, res) {
-  res.type('text/plain'); // set content-type
-  res.send('i am a list of categories'); // send text response
-});
-app.get('/rest/topic', function(req, res) {
-  res.type('text/plain'); // set content-type
-  res.send('i am a list of topics'); // send text response
-});
-app.get('/rest/reply', function(req, res) {
-  res.type('text/plain'); // set content-type
-  res.send('i am a list of replies'); // send text response
-});
+
+// Create new category
+app.post('/rest/category', categoryController.create);
+// app.get('rest/category/:id', categoryController.readOne);
+// Return all categories
+app.get('/rest/category', categoryController.readAll);
+// app.put('/rest/category/:id', categoryController.update);
+// Delete a single Category
+app.delete('/rest/category/:id', categoryController.destroy);
+
+
+app.get('/rest/topic', function(req, res) {});
+app.get('/rest/reply', function(req, res) {});
 app.get('/rest/user', userController.getPublicUsers);
 app.get('/rest/user/:id', userController.getPublicProfile);
 

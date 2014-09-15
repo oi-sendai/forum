@@ -16,7 +16,8 @@
 //= require lib/jquery-2.1.1.min
 //= require lib/bootstrap.min
 //= require lib/angular/angular
-//= require lib/angular-ui-router
+//= require lib/angular-resource/angular-resource
+//= require lib/angular-ui-router/release/angular-ui-router
 //= require lib/angular-bootstrap
 //= require lib/bootstrap.min
 //= require lib/bootstrap.min
