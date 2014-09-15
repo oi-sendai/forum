@@ -128,35 +128,35 @@ exports.getAccount = function(req, res) {
  */
 exports.getPublicUsers = function(req, res) {
     User.find(function(err, users) {
-            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-            if (err)
-                res.send(err)
-            var returnObject = [];
-
-            // sequential for loop
-            console.log(users);
-            var arrayLength = users.length;
-            for (var i = 0; i < arrayLength; i++) {
-              var user = {}
-              user._id = users[i]._id;
-              user.profile = users[i].profile;
-                returnObject.push(user); //
-            }
-              
-            res.json(returnObject); // return all ingredients in JSON format
+      // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+      if (err)
+          res.send(err)
+      var returnObject = [];
+      var arrayLength = users.length;
+      for (var i = 0; i < arrayLength; i++) {
+        var user = {}
+        user._id = users[i]._id;
+        user.profile = users[i].profile;
+          returnObject.push(user); //
+      }
+        
+      res.json(returnObject); // return all ingredients in JSON format
     });
 },
 /**
  * GET /rest/users/:user_id
  * Get public facing user profile.
  */
-// exports.getPublicProfile = function(req, res, next) {
-//   User.findById(req.user.id, function(err, user) {
-//     if (err) return next(err);
-//     res.json(user);
-//     });
-//   });
-// };
+exports.getPublicProfile = function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) return next(err);
+    var private_user = user;
+    var user = {}; // clear private data
+    user._id = private_user._id;
+    user.profile = private_user.profile;
+    res.json(user);
+  });
+};
 
 /**
  * POST /account/profile

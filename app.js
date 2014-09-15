@@ -157,6 +157,7 @@ app.get('/rest/reply', function(req, res) {
   res.send('i am a list of replies'); // send text response
 });
 app.get('/rest/user', userController.getPublicUsers);
+app.get('/rest/user/:id', userController.getPublicProfile);
 
 /**
  * API examples routes.
