@@ -136,6 +136,29 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 /**
+ * Api Routes
+ */
+
+
+app.get('/rest', function(req, res) {
+  res.type('text/plain'); // set content-type
+  res.send('i am a beautiful butterfly'); // send text response
+});
+app.get('/rest/category', function(req, res) {
+  res.type('text/plain'); // set content-type
+  res.send('i am a list of categories'); // send text response
+});
+app.get('/rest/topic', function(req, res) {
+  res.type('text/plain'); // set content-type
+  res.send('i am a list of topics'); // send text response
+});
+app.get('/rest/reply', function(req, res) {
+  res.type('text/plain'); // set content-type
+  res.send('i am a list of replies'); // send text response
+});
+app.get('/rest/user', userController.getPublicUsers);
+
+/**
  * API examples routes.
  */
 

@@ -123,6 +123,42 @@ exports.getAccount = function(req, res) {
 };
 
 /**
+ * GET /rest/users
+ * List all users by Id
+ */
+exports.getPublicUsers = function(req, res) {
+    User.find(function(err, users) {
+            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+            if (err)
+                res.send(err)
+            var returnObject = [];
+
+            // sequential for loop
+            console.log(users);
+            var arrayLength = users.length;
+            for (var i = 0; i < arrayLength; i++) {
+              var user = {}
+              user._id = users[i]._id;
+              user.profile = users[i].profile;
+                returnObject.push(user); //
+            }
+              
+            res.json(returnObject); // return all ingredients in JSON format
+    });
+},
+/**
+ * GET /rest/users/:user_id
+ * Get public facing user profile.
+ */
+// exports.getPublicProfile = function(req, res, next) {
+//   User.findById(req.user.id, function(err, user) {
+//     if (err) return next(err);
+//     res.json(user);
+//     });
+//   });
+// };
+
+/**
  * POST /account/profile
  * Update profile information.
  */
