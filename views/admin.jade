@@ -46,6 +46,29 @@ html
 
             .col-md-6
                 h2 Topics
+                .well
+                    div.row
+                        form(ng-submit="addCategory()")
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.name" placeholder="Name")
+                            .col-md-5
+                                input.form-control(type="text" ng-model="formData.description" placeholder="Description")
+                            .col-md-2
+                                button.form-control(type="submit")
+                                    i.fa.fa-pencil-square-o
+                                    | &nbsp;Add
+                    div.row(ng-repeat="category in categoryList")
+                        hr
+                        .col-md-2
+                            button
+                                i.fa.fa-wrench
+                        .col-md-4
+                            h5 {{category.name}}
+                        .col-md-4
+                            h5 {{category.description}}
+                        .col-md-2
+                            button(ng-click="deleteCategory(category._id)")
+                                i.fa.fa-times
             .col-md-6
                 h2 Replies
             .col-md-6

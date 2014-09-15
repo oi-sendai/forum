@@ -22,14 +22,14 @@ exports.readAll = function(req, res) {
       res.json(categories); 
     });
 };
-// exports.readOne = function(req, res) {
-//     Category.find(function(err, categories) {
-//       if (err)
-//           res.send(err)
+exports.readOne = function(req, res) {
+    Category.find(function(err, categories) {
+      if (err)
+          res.send(err)
         
-//       res.json(categories); 
-//     });
-// };
+      res.json(categories); 
+    });
+};
 // exports.update = function(req, res) {
 //     Category.find({
 //         _id : req.params.id
@@ -39,6 +39,7 @@ exports.readAll = function(req, res) {
 //         res.json(category);
 //     });
 // };
+
 exports.destroy = function(req, res) {
     console.log('destroy');
     Category.remove({
