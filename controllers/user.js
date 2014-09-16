@@ -164,6 +164,7 @@ exports.getPublicProfile = function(req, res, next) {
  */
 
 exports.postUpdateProfile = function(req, res, next) {
+  console.log(req.user);
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
     user.email = req.body.email || '';

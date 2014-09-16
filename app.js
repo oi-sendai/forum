@@ -31,6 +31,7 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var categoryController = require('./controllers/category');
+var topicController = require('./controllers/topic');
 
 /**
  * API keys and Passport configuration.
@@ -123,7 +124,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
  */
 
 app.get('/', homeController.index);
-app.get('/admin', adminController.index);
+app.get('/admin', passportConf.isAuthenticated, adminController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -161,8 +162,13 @@ app.get('/rest/category', categoryController.readAll);
 app.delete('/rest/category/:id', categoryController.destroy);
 
 
-app.get('/rest/topic', function(req, res) {});
-app.get('/rest/reply', function(req, res) {});
+app.get('/rest/topic', topicController.getAll);
+app.get('/rest/topic/:id', topicController.getOne);
+app.post('/rest/topic', topicController.postCreate);
+app.put('/rest/topic/:id', topicController.putUpdate);
+app.delete('/rest/topic/:id', topicController.deleteDestroy);
+
+
 app.get('/rest/user', userController.getPublicUsers);
 app.get('/rest/user/:id', userController.getPublicProfile);
 

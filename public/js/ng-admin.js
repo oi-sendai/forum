@@ -6,11 +6,11 @@ var ngAdmin = angular.module('ngAdmin', [
     'ngResource',
     // 'ngAnimate',
     // 'textAngular',
-    'categoryAdminControl'
+    'categoryAdminControl',
+    'topicAdminControl'
 ]);
 
 var categoryAdminControl = angular.module('categoryAdminControl', []);
-
 categoryAdminControl.controller('categoryAdminControl', function($scope, RestFactory){
     $scope.debug = 'categoryAdminControl';
     $scope.endpoint = "rest/category";
@@ -36,6 +36,45 @@ categoryAdminControl.controller('categoryAdminControl', function($scope, RestFac
         });
     }; 
     $scope.deleteCategory = function(id){
+        // I have no idea why this didn't work with .then but 
+        console.log('clik');
+        RestFactory.destroy($scope.endpoint, id).success(function(response) {
+            console.log('delete');
+            $scope.init();
+        });
+    }; 
+});
+
+var topicAdminControl = angular.module('topicAdminControl', []);
+topicAdminControl.controller('topicAdminControl', function($scope, RestFactory){
+    $scope.debug = 'topicAdminControl';
+    $scope.endpoint = "rest/topic";
+    $scope.formData = {};
+    $scope.topicList = [];
+    $scope.categoryList = [];
+
+
+    $scope.init = function(){
+        // RestFactory.getAll($scope.endpoint).then(function(response) {
+        //     console.log(response);
+        //     $scope.topicList = response.data;
+        // });
+        RestFactory.getAll("rest/category").then(function(response) {
+            console.log(response);
+            $scope.categoryList = response.data;
+        });
+    }; 
+    $scope.init();
+
+    $scope.addTopic = function(){
+        console.log('topic');
+        RestFactory.create($scope.endpoint, $scope.formData).success(function(response) {
+            $scope.formData = {}; // clear the form so our user is ready to enter another
+            $scope.init();
+
+        });
+    }; 
+    $scope.deleteTopic = function(id){
         // I have no idea why this didn't work with .then but 
         console.log('clik');
         RestFactory.destroy($scope.endpoint, id).success(function(response) {
