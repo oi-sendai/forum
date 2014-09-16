@@ -16,12 +16,11 @@ categoryAdminControl.controller('categoryAdminControl', function($scope, RestFac
     $scope.endpoint = "rest/category";
     $scope.formData = {};
     $scope.categoryList = [];
-    $scope.test = 'rest/user';
 
 
     $scope.init = function(){
         RestFactory.getAll($scope.endpoint).then(function(response) {
-            console.log(response);
+            console.log(response.user);
             $scope.categoryList = response.data;
         });
     }; 
@@ -52,22 +51,29 @@ topicAdminControl.controller('topicAdminControl', function($scope, RestFactory){
     $scope.formData = {};
     $scope.topicList = [];
     $scope.categoryList = [];
+    $scope.userid = '';
 
 
     $scope.init = function(){
-        // RestFactory.getAll($scope.endpoint).then(function(response) {
-        //     console.log(response);
-        //     $scope.topicList = response.data;
-        // });
-        RestFactory.getAll("rest/category").then(function(response) {
+        RestFactory.getAll($scope.endpoint).then(function(response) {
+            console.log(response);
+            $scope.topicList = response.data;
+        });
+        RestFactory.getAll("/rest/category").then(function(response) {
             console.log(response);
             $scope.categoryList = response.data;
+        });
+        RestFactory.userid().then(function(response) {
+            console.log(response);
+            $scope.userid = response.data;
         });
     }; 
     $scope.init();
 
     $scope.addTopic = function(){
-        console.log('topic');
+        console.log($scope.formData);
+        $scope.formData.topic_by = $scope.userid;
+        console.log($scope.formData);
         RestFactory.create($scope.endpoint, $scope.formData).success(function(response) {
             $scope.formData = {}; // clear the form so our user is ready to enter another
             $scope.init();
@@ -105,6 +111,9 @@ ngAdmin.factory("RestFactory", function($http,$resource) {
     console.log(endpoint + '/' + id);
         return $http.delete(endpoint + '/' + id);
   };
+  factory.userid = function () {
+    return $http.get('/rest/currentuser');
+  }
   return factory
 });
 

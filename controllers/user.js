@@ -110,7 +110,14 @@ exports.postSignup = function(req, res, next) {
     });
   });
 };
-
+/**
+ * GET /user/currentuser
+ * Profile page.
+ */
+ exports.getCurrent = function(req, res) {
+  var userdata = req.user._id;
+  res.json(userdata);
+};
 /**
  * GET /account
  * Profile page.

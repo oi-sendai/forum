@@ -169,6 +169,7 @@ app.put('/rest/topic/:id', topicController.putUpdate);
 app.delete('/rest/topic/:id', topicController.deleteDestroy);
 
 
+app.get('/rest/currentuser', userController.getCurrent);
 app.get('/rest/user', userController.getPublicUsers);
 app.get('/rest/user/:id', userController.getPublicProfile);
 
