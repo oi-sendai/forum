@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+    .row
+        .col-md-8.col-md-offset-2
+            table.table.table-hover
+              thead
+                tr
+                  th Topic
+                  th Posted By
+                  th Replies
+                  th Star
+              tbody
+                for topic in topics
+                    tr
+                      td
+                        a(href="/topic/#{topic._id}") #{topic.subject}
+                      td
+                        i.fa.fa-user
+                        a(href="/user/#{topic.topic_by}") #{topic.topic_by}
+                      td
+                        i.fa.fa-paper-plane
+                        | 435 replies
+                      td
+                        i.fa.fa-star

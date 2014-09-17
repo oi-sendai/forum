@@ -18,18 +18,13 @@ exports.postCreate = function(req, res) {
     });
 };
 exports.getAll = function(req, res) {
-    var thing = "thing return";
+    var object = {};
     // return thing
     Topic.find(function(err, topics) {
       if (err)
           res.send(err)
-      // if (req)
-      //   res.json(topics);
-      // else
-      console.log(topics);
-      return JSON.stringify(topics)
+      res.json(topics);
     });
-    return 'thjksdf'
 };
 // exports.getAll = function(req, res) {
 //     Topic.find(function(err, topics) {

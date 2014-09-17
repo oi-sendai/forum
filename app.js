@@ -32,7 +32,7 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var categoryController = require('./controllers/category');
 var topicController = require('./controllers/topic');
-var blogController = require('./controllers/blog');
+var forumController = require('./controllers/forum');
 
 /**
  * API keys and Passport configuration.
@@ -124,11 +124,13 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
  * Main routes.
  */
 
-app.get('/', homeController.index);
+app.get('/', homeController.index); // list all categories
+app.get('/room/:id', forumController.renderRoom); // list all topics in category
+app.get('.room/:id/topic/:id'); // show category post
 
 
 app.get('/admin', passportConf.isAuthenticated, adminController.index);
-app.get('/blog', blogController.renderBlog);
+// app.get('/blog', blogController.renderBlog);
 
 
 app.get('/login', userController.getLogin);
