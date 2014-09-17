@@ -126,7 +126,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 
 app.get('/', homeController.index); // list all categories
 app.get('/room/:id', forumController.renderRoom); // list all topics in category
-app.get('.room/:id/topic/:id'); // show category post
+app.get('/room/:cat_id/topic/:topic_id', forumController.renderTopic); // show category post
 
 
 app.get('/admin', passportConf.isAuthenticated, adminController.index);

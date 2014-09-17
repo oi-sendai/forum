@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+    .row
+        .col-md-8.col-md-offset-2
+            h2 #{topic[0].subject}
+            h5 by 
+                a(href="/user/#{topic[0].topic_by}") #{topic[0].topic_by}
+            p #{topic[0].content}

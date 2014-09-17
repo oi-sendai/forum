@@ -3,6 +3,7 @@ extends ../layout
 block content
     .row
         .col-md-8.col-md-offset-2
+            h2 #{category}
             table.table.table-hover
               thead
                 tr
@@ -14,7 +15,7 @@ block content
                 for topic in topics
                     tr
                       td
-                        a(href="/topic/#{topic._id}") #{topic.subject}
+                        a(href="/room/#{category}/topic/#{topic._id}") #{topic.subject}
                       td
                         i.fa.fa-user
                         a(href="/user/#{topic.topic_by}") #{topic.topic_by}
