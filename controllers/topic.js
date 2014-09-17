@@ -1,14 +1,5 @@
 var Topic = require('../models/Topic');
 
-
-exports.renderBlog = function(req, res) {
-      console.log(req.user);
-  res.render('blog/blog', {
-    title: 'Blog',
-    something: 'else'
-  });
-};
-
 /**
  * GET /rest/topic
  * List all topic by Id
@@ -27,13 +18,27 @@ exports.postCreate = function(req, res) {
     });
 };
 exports.getAll = function(req, res) {
+    var thing = "thing return";
+    // return thing
     Topic.find(function(err, topics) {
       if (err)
           res.send(err)
-        
-      res.json(topics); 
+      // if (req)
+      //   res.json(topics);
+      // else
+      console.log(topics);
+      return JSON.stringify(topics)
     });
+    return 'thjksdf'
 };
+// exports.getAll = function(req, res) {
+//     Topic.find(function(err, topics) {
+//       if (err)
+//           res.send(err)
+//       console.log(topics);
+//       return topics
+//     });
+// };
 exports.getOne = function(req, res) {
     Topic.find(function(err, topics) {
       if (err)

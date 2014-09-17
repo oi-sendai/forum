@@ -128,7 +128,7 @@ app.get('/', homeController.index);
 
 
 app.get('/admin', passportConf.isAuthenticated, adminController.index);
-app.get('/blog', topicController.renderBlog);
+app.get('/blog', blogController.renderBlog);
 
 
 app.get('/login', userController.getLogin);
