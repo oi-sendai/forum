@@ -2,7 +2,7 @@
 
 var ngAdmin = angular.module('ngAdmin', [
     // 'ngCookies', 
-    // 'ui.router',
+    'ui.router',
     'ngResource',
     // 'ngAnimate',
     // 'textAngular',
@@ -42,6 +42,23 @@ categoryAdminControl.controller('categoryAdminControl', function($scope, RestFac
             $scope.init();
         });
     }; 
+});
+
+var forumTopicControl = angular.module('forumTopicControl', []);
+forumTopicControl.controller('forumTopicControl', function($scope, TopicFactory){
+    $scope.debug = 'forumTopicControl';
+    // $scope.endpoint = "rest/topic/category";
+    $scope.formData = {};
+    $scope.categoryList = [];
+
+
+    $scope.init = function(){
+        TopicFactory.getAll($scope.endpoint, $scope.category).then(function(response) {
+            console.log(response);
+            $scope.topics = response.data;
+        });
+    }; 
+    $scope.init();
 });
 
 var topicAdminControl = angular.module('topicAdminControl', []);
@@ -91,6 +108,16 @@ topicAdminControl.controller('topicAdminControl', function($scope, RestFactory){
 });
 
 
+ngAdmin.factory("TopicFactory", function($http,$resource) {
+    var factory = {};
+
+    factory.getByCat = function(id){
+        return $http.get('rest/topic/category/' + id);
+    };
+
+    return factory
+});
+
 ngAdmin.factory("RestFactory", function($http,$resource) {
   var factory = {};
 
@@ -117,38 +144,35 @@ ngAdmin.factory("RestFactory", function($http,$resource) {
   return factory
 });
 
-ngAdmin.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.xsrfHeaderName="x-csrf-token";
-    $httpProvider.defaults.xsrfCookieName="x-csrf-token";
+// ngAdmin.config(['$httpProvider', function($httpProvider) {
+//     $httpProvider.defaults.xsrfHeaderName="x-csrf-token";
+//     $httpProvider.defaults.xsrfCookieName="x-csrf-token";
 
+// }]);
+
+ngAdmin.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', 
+    function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+    // Anonymous routes
+    $stateProvider
+        .state('admin', {
+            abstract: true,
+            // template: '<ui-view autoscroll="false"/>',
+            templateUrl: 'public',
+        })
+        // // Home
+        .state('admin.home', {
+            url: '/toast/',
+            template: 'this is an angular app'
+            // views:{
+            //     'main':{
+            //         templateUrl:'blog/public/list',
+            //         controller: 'publicBlogController'
+            //     },
+            //     'sidebar': {
+            //         templateUrl: 'blog/public/sidebar',
+            //         controller: 'publicBlogController'
+            //     }
+            // }
+        });
 }]);
-
-// eshoprShop.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', 
-//     function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $uiViewScrollProvider, $anchorScrollProvider ) {
-
-//     // Anonymous routes
-//     $stateProvider
-//         .state('admin', {
-//             abstract: true,
-//             // template: '<ui-view autoscroll="false"/>',
-//             templateUrl: 'public',
-//             data: {
-//                 access: access.public
-//             }
-//         })
-//         // Home
-//         .state('admin.home', {
-//             url: '/admin/',
-//             template: 'this is an angular app'
-//             // views:{
-//             //     'main':{
-//             //         templateUrl:'blog/public/list',
-//             //         controller: 'publicBlogController'
-//             //     },
-//             //     'sidebar': {
-//             //         templateUrl: 'blog/public/sidebar',
-//             //         controller: 'publicBlogController'
-//             //     }
-//             // }
-//         });
-// });

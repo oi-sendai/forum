@@ -1,5 +1,14 @@
 var Topic = require('../models/Topic');
 
+
+exports.renderBlog = function(req, res) {
+      console.log(req.user);
+  res.render('blog/blog', {
+    title: 'Blog',
+    something: 'else'
+  });
+};
+
 /**
  * GET /rest/topic
  * List all topic by Id
@@ -51,3 +60,14 @@ exports.deleteDestroy = function(req, res) {
                 res.send(err);
     });
 };
+
+
+exports.getByCategory = function(req, res) {
+  Topic.find({ 
+    topic_cat: req.params.id
+  }, function(err, topics) {
+      if(err)
+        res.send(err);
+      res.json(topics);
+  })
+}

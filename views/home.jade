@@ -5,9 +5,30 @@ block content
   p.lead You can browse categories for topics of interest or start a new topic in an appropriate
   hr
   section(ng-app="ngAdmin")
+    .row(ui-view autoscroll="false")
+      h3 ui view
     .row(ng-controller="categoryAdminControl")
       .col-sm-6(ng-repeat="category in categoryList")
         h2 {{category.name}}
+        table.table.table-hover
+          //(ng-controller="forumTopicControl")
+          thead
+            tr
+              th Topic
+              th Posted By
+              th Replies
+              th Star
+          tbody
+            tr(ng-repeat="topic in topicList")
+              td
+                a(href="topic._id") {{topic.subject}}
+              td
+                a(href="topic.topic_by") {{topic.topic_by}}
+              td
+                i.fa.fa-user
+                | 435
+              td
+                i.fa.fa-star
 
 
 
