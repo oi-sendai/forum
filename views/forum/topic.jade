@@ -1,9 +1,32 @@
 extends ../layout
 
 block content
-    .row
-        .col-md-8.col-md-offset-2
+    .row(ng-app="ngTopic")
+        .col-md-8.col-md-offset-2.well
             h2 #{topic[0].subject}
             h5 by 
                 a(href="/user/#{topic[0].topic_by}") #{topic[0].topic_by}
             p #{topic[0].content}
+            hr
+            h4(ng-controller="userControl") Comments {{debug}}
+                //{{post[0].comments}}
+                section
+                    article.comment.row(ng-repeat="comment in post[0].comments track by $index" ng-animate=" 'animate' ")
+                        .col-md-5
+                                h5 
+                                    i.fa.fa-user 
+                                    span &nbsp;{{user.username}}
+                            .col-md-7
+                                p {{comment.message}}
+                hr
+                section.add-comment(ng-controller="commentControl")
+                    aside.comment-form.row
+                        form(ng-submit="addComment()")
+                            .col-md-5
+                                button(type="submit")
+                                    i.fa.fa-user
+                                    | &nbsp;#{user.profile.name}
+                                input.comment.break-word(type="hidden" ng-init="formData.reply_by = '#{user._id}'" ng-model="formData.reply_by" value="#{user._id}")
+                                input.comment.break-word(type="hidden" ng-init="formData.topic_id = '#{topic[0]._id}'" ng-model="formData.topic_id" value="#{topic[0]._id}")
+                            .col-md-7
+                                input.comment(type="textarea" ng-model="formData.reply" value="message")

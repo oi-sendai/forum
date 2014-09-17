@@ -32,6 +32,7 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var categoryController = require('./controllers/category');
 var topicController = require('./controllers/topic');
+var replyController = require('./controllers/reply');
 var forumController = require('./controllers/forum');
 
 /**
@@ -176,6 +177,13 @@ app.get('/rest/topic/:id', topicController.getOne);
 app.post('/rest/topic', topicController.postCreate);
 app.put('/rest/topic/:id', topicController.putUpdate);
 app.delete('/rest/topic/:id', topicController.deleteDestroy);
+
+// app.get('/rest/topic/category/:id', topicController.getByCategory)
+app.get('/rest/reply', replyController.getAll);
+// app.get('/rest/reply/:id', replyController.getOne);
+app.post('/rest/reply', replyController.replyCreate);
+// app.put('/rest/reply/:id', replyController.putUpdate);
+// app.delete('/rest/reply/:id', replyController.deleteDestroy);
 
 
 app.get('/rest/currentuser', userController.getCurrent);
