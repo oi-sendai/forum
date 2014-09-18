@@ -44,9 +44,12 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
 
     $scope.init = function(topic_id){
         $scope.topic_id = topic_id;
-        $scope.comments = getTopicComments(topic_id);
+        $scope.showComments();
+        console.log('fires');
+        console.log($scope.topic_id);
+        console.log($scope.comments);
     }; 
-    $scope.init();
+    // $scope.init();
 
     $scope.test = function(input) {
         var foo = input;
@@ -62,13 +65,15 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
             console.log(response)
             console.log('works now');
             $scope.formData = {};
+            $scope.showComments();
             // $scope.refresh(); //refreshPosts();
         });
     };
-    $scope.showComments = function(topic_id){
-        CommentFactory.showComments(topic_id).success(function(response) {
-            console.log(response)
-            console.log('works now');
+    $scope.showComments = function(){
+        console.log('showComments');
+        CommentFactory.getTopicComments($scope.topic_id).success(function(response) {
+            console.log(response);
+            console.log('works now still');
             $scope.comments = response;
             // $scope.comments = response.data;
             // $scope.refresh(); //refreshPosts();
@@ -84,8 +89,11 @@ ngTopic.factory("CommentFactory", function($http,$resource) {
         return $http.post('/rest/reply', formData);
     };
     factory.getTopicComments = function(topic_id){
+        console.log('getTopicComments');
+        console.log(topic_id);
+        // return 'a thing'
         return $http.get('/rest/reply/' + topic_id);
-    }
+    };
 
     return factory
 });

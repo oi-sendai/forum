@@ -21,6 +21,7 @@ exports.create = function(req, res) {
     });
 };
 exports.getAllById = function(req, res) {
+  console.log(req.params);
     Reply.find({
           topic_id: req.params.topic_id
     }, function(err, replies) {
