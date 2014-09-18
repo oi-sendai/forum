@@ -20,20 +20,22 @@ exports.create = function(req, res) {
         res.json(reply);
     });
 };
-exports.getAll = function(req, res) {
-    Reply.find(function(err, categories) {
+exports.getAllById = function(req, res) {
+    Reply.find(
+      topic_id: req.body.topic_id
+    }, function(err, replies) {
       if (err)
           res.send(err)
         
-      res.json(categories); 
+      res.json(replies); 
     });
 };
 exports.getOne = function(req, res) {
-    Reply.find(function(err, categories) {
+    Reply.find(function(err, replies) {
       if (err)
           res.send(err)
         
-      res.json(categories); 
+      res.json(replies); 
     });
 };
 exports.update = function(req, res) {

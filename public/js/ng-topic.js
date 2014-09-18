@@ -38,7 +38,7 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
     $scope.debug = 'commentControl';
     $scope.endpoint = "rest/user";
     $scope.formData = {};
-    // $scope.categoryList = [];
+    $scope.comments = [];
 
 
     $scope.init = function(){
@@ -56,9 +56,18 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
         console.log($scope.post_id);
         console.log('formData');
         console.log($scope.formData);
-        CommentFactory.addComment($scope.formData).then(function(response) {
+        CommentFactory.addComment($scope.formData).success(function(response) {
             console.log(response)
             console.log('works now');
+            $scope.formData = {};
+            // $scope.refresh(); //refreshPosts();
+        });
+    };
+    $scope.showComments = function(topic_id){
+        CommentFactory.showComments(topic_id).success(function(response) {
+            console.log(response)
+            console.log('works now');
+            $scope.comments = response;
             // $scope.comments = response.data;
             // $scope.refresh(); //refreshPosts();
         });

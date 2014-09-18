@@ -8,14 +8,14 @@ block content
                 a(href="/user/#{topic[0].topic_by}") #{topic[0].topic_by}
             p #{topic[0].content}
             hr
-            h4(ng-controller="userControl") Comments {{debug}}
+            h4(ng-controller="userControl") Comments
                 //{{post[0].comments}}
                 section
                     article.comment.row(ng-repeat="comment in post[0].comments track by $index" ng-animate=" 'animate' ")
                         .col-md-5
                                 h5 
                                     i.fa.fa-user 
-                                    span &nbsp;{{user.username}}
+                                    span &nbsp;{{user.username}} how the fuck to get topic id
                             .col-md-7
                                 p {{comment.message}}
                 hr
