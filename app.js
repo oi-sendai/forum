@@ -51,8 +51,10 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
+var credentials =     require('./credentials');
+// mongoose.connect(secrets.db);
+mongoose.connect(credentials.mongoose);   // connect to mongoDB database on modulus.io
 
-mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
 });
@@ -175,10 +177,12 @@ app.get('/rest/topic/category/:id', topicController.getByCategory)
 app.get('/rest/topic', topicController.getAll);
 app.get('/rest/topic/:id', topicController.getOne);
 app.post('/rest/topic', topicController.postCreate);
+app.post('/room/rest/topic', topicController.postCreate);
 app.put('/rest/topic/:id', topicController.putUpdate);
 app.delete('/rest/topic/:id', topicController.deleteDestroy);
 
 // app.get('/rest/topic/category/:id', topicController.getByCategory)
+app.get('/rest/reply/:topic_id', replyController.getAllById);
 app.get('/rest/reply/:topic_id', replyController.getAllById);
 // app.get('/rest/reply/:id', replyController.getOne);
 app.post('/rest/reply', replyController.create);
@@ -274,8 +278,9 @@ app.use(errorHandler());
  * Start Express server.
  */
 
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
-});
+// app.listen(app.get('port'), function() {
+//   console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
+// });
+app.listen(process.env.PORT || 3000);
 
 module.exports = app;

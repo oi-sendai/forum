@@ -7,8 +7,10 @@ var ngTopic = angular.module('ngTopic', [
     // 'ngAnimate',
     // 'textAngular',
     'commentControl',
-    'userControl'
+    'userControl',
     // 'UserFactory'
+        'categoryAdminControl',
+    'topicAdminControl'
 ]);
 
 var userControl = angular.module('userControl', []);

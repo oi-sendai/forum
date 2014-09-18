@@ -23,6 +23,6 @@
 //= require lib/bootstrap.min
 //= require lib/bootstrap.min
 //= require main
-//= require ng-admin
 //= require ng-topic
+//= require ng-admin
 //= require category/categoryAdminControl

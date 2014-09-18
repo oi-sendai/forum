@@ -21,12 +21,13 @@ block content
                 hr
                 section.add-comment(ng-controller="commentControl" ng-init="init('#{topic[0]._id}')")
                     article.comment(ng-repeat="comment in comments")
-                        .row
+                        .row.well
                             .col-md-4
-                                h5 {{comment.reply_by}}
+                                h6
+                                    a(href="/user/{{comment.reply_by}}") {{comment.reply_by}}
                             .col-md-8
-                                h1 {{comment.reply}}
-                        hr
+                                p {{comment.reply}}
+                            hr
                     aside.comment-form.row
                         form(ng-submit="addComment()")
                             .col-md-5
