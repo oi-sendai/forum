@@ -179,7 +179,7 @@ app.put('/rest/topic/:id', topicController.putUpdate);
 app.delete('/rest/topic/:id', topicController.deleteDestroy);
 
 // app.get('/rest/topic/category/:id', topicController.getByCategory)
-app.get('/rest/reply', replyController.getAllById);
+app.get('/rest/reply/:topic_id', replyController.getAllById);
 // app.get('/rest/reply/:id', replyController.getOne);
 app.post('/rest/reply', replyController.create);
 // app.put('/rest/reply/:id', replyController.putUpdate);

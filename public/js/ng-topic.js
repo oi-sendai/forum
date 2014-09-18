@@ -39,10 +39,12 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
     $scope.endpoint = "rest/user";
     $scope.formData = {};
     $scope.comments = [];
+    $scope.topic_id = '';
 
 
-    $scope.init = function(){
-
+    $scope.init = function(topic_id){
+        $scope.topic_id = topic_id;
+        $scope.comments = getTopicComments(topic_id);
     }; 
     $scope.init();
 
@@ -81,6 +83,9 @@ ngTopic.factory("CommentFactory", function($http,$resource) {
     factory.addComment = function(formData){
         return $http.post('/rest/reply', formData);
     };
+    factory.getTopicComments = function(topic_id){
+        return $http.get('/rest/reply/' + topic_id);
+    }
 
     return factory
 });

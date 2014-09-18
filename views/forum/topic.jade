@@ -8,7 +8,7 @@ block content
                 a(href="/user/#{topic[0].topic_by}") #{topic[0].topic_by}
             p #{topic[0].content}
             hr
-            h4(ng-controller="userControl") Comments
+            h4(ng-controller="userControl" ng-init="#{topic[0]._id}") 
                 //{{post[0].comments}}
                 section
                     article.comment.row(ng-repeat="comment in post[0].comments track by $index" ng-animate=" 'animate' ")

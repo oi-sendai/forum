@@ -21,8 +21,8 @@ exports.create = function(req, res) {
     });
 };
 exports.getAllById = function(req, res) {
-    Reply.find(
-      topic_id: req.body.topic_id
+    Reply.find({
+          topic_id: req.params.topic_id
     }, function(err, replies) {
       if (err)
           res.send(err)
