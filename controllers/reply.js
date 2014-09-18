@@ -8,6 +8,7 @@ var Reply = require('../models/Reply');
  * List all reply by Id
  */
 exports.create = function(req, res) {
+    console.log(req.body);
     var reply = new Reply(); 
     reply.reply       = req.body.reply;  
     reply.topic_id = req.body.topic_id;

@@ -69,8 +69,8 @@ commentControl.controller('commentControl', function($scope, CommentFactory){
 ngTopic.factory("CommentFactory", function($http,$resource) {
     var factory = {};
 
-    factory.addComment = function(postData){
-        return $http.get('/rest/reply');
+    factory.addComment = function(formData){
+        return $http.post('/rest/reply', formData);
     };
 
     return factory
