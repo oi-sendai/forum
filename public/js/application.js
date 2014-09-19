@@ -18,7 +18,7 @@
 //= require lib/angular/angular
 //= require lib/angular-resource/angular-resource
 //= require lib/angular-ui-router/release/angular-ui-router
-//= require lib/angular-bootstrap
+//= require lib/angular-bootstrap/ui-bootstrap.min
 //= require lib/bootstrap.min
 //= require lib/bootstrap.min
 //= require lib/bootstrap.min
