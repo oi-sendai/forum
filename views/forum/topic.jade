@@ -23,19 +23,21 @@ block content
                     article.comment(ng-repeat="comment in comments")
                         .row.well
                             .col-md-4
-                                h6
-                                    a(href="/user/{{comment.reply_by}}") {{comment.reply_by}}
+                                if(user)
+                                    h6
+                                        a(href="/user/{{comment.reply_by}}") {{comment.reply_by}}
                             .col-md-8
                                 p {{comment.reply}}
                             hr
-                    aside.comment-form.row
-                        form(ng-submit="addComment()")
-                            .col-md-5
-                                button(type="submit")
-                                    i.fa.fa-user
-                                    | &nbsp;#{user.profile.username} 
-                                    //- //!! You really should login for great content !!/
-                                input.comment.break-word(type="hidden" ng-init="formData.reply_by = '#{user._id}'" ng-model="formData.reply_by" value="#{user._id}")
-                                input.comment.break-word(type="hidden" ng-init="formData.topic_id = '#{topic[0]._id}'" ng-model="formData.topic_id" value="#{topic[0]._id}")
-                            .col-md-7
-                                input.comment(type="textarea" ng-model="formData.reply" value="message")
+                    if(user)
+                        aside.comment-form.row
+                            form(ng-submit="addComment()")
+                                .col-md-5
+                                    button(type="submit")
+                                        i.fa.fa-user
+                                        | &nbsp;#{user.profile.username} 
+                                        //- //!! You really should login for great content !!/
+                                    input.comment.break-word(type="hidden" ng-init="formData.reply_by = '#{user._id}'" ng-model="formData.reply_by" value="#{user._id}")
+                                    input.comment.break-word(type="hidden" ng-init="formData.topic_id = '#{topic[0]._id}'" ng-model="formData.topic_id" value="#{topic[0]._id}")
+                                .col-md-7
+                                    input.comment(type="textarea" ng-model="formData.reply" value="message")
