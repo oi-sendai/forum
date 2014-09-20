@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-    .row(ng-app="ngTopic")
+    .row.hemp(ng-app="ngTopic")
         .col-md-8.col-md-offset-2.well
             h2 #{topic[0].subject}
             h5 by 
@@ -33,7 +33,8 @@ block content
                             .col-md-5
                                 button(type="submit")
                                     i.fa.fa-user
-                                    | &nbsp;#{user.profile.name}
+                                    | &nbsp;#{user.profile.username} 
+                                    //- //!! You really should login for great content !!/
                                 input.comment.break-word(type="hidden" ng-init="formData.reply_by = '#{user._id}'" ng-model="formData.reply_by" value="#{user._id}")
                                 input.comment.break-word(type="hidden" ng-init="formData.topic_id = '#{topic[0]._id}'" ng-model="formData.topic_id" value="#{topic[0]._id}")
                             .col-md-7
